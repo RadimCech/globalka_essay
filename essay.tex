@@ -37,6 +37,8 @@ ekvivalentni definice nedegenerovanosti.
 
 Narozdil od riemannovske geometrie nelze pouzit partitions of unity na konstrukci metriky.
 
+napsat poznamku o koncenci se psanim dimenze manifoldu :D
+
 
 \begin{example}[Canonical symplectic structure]
     Let $M = \mathbb{R}^2m$ with the global coordinates ${q_1, \dots, q_m, p_1, \dots, p_m}$. and let $\omega$ be a form s.t., 
@@ -51,22 +53,15 @@ Narozdil od riemannovske geometrie nelze pouzit partitions of unity na konstrukc
 \end{example}
 
 \begin{example}[Cotangent bundle is a symplectic manifold.]
-    Let $M$ be a manifold of dimension $m$, let $\eta \in T^*M$ be a tangent covector and $\nu \in T_\eta(T^*M)$ be a tangent vector at $\eta$.
-    Represent $\nu$ as a curve $\nu:(-\epsilon, \epsilon) \rightarrow T^*M$ s.t. 
+    Let $M$ be a manifold of dimension $m$, let $\eta \in T^*M$ be a tangent covector and $\nu \in T_\eta(T^*M)$ be a tangent vector at $\eta$. Represent $\nu$ as a curve $\nu:(-\epsilon, \epsilon) \rightarrow T^*M$ s.t. 
     \begin{equation*}
-        \nu(0) = \eta,\,\,\, \dot{\nu}(0) = \nu
+        \nu(0) = \eta,\,\,\, \nu'(0) = \nu
     \end{equation*}
     Project this curve by the projection $\pi:T^*M \rightarrow M$ and apply $\eta$ to the tangent vector of the projected curve 
     \begin{equation}\label{eqLiouvilleForm}
         \theta(\nu) := \eta \Big(\frac{d}{dt}\big(\pi \circ \nu(t)\vert_{t=0} \big)\Big)
     \end{equation}
-    Then 
-    \begin{equation*}
-        \omega = d \theta
-    \end{equation*}
-    is a simlectic form on $T^*M$.
-    Any system of coordinates $\{q_1,\dots, q_m\}$ in M determines coordinates $\{q_1,\dots, q_m, p_1, \dots, p_m\}$ in $T^*M$ by the relation
-    $\eta = \sum p_i \cdot dq_i$. From \eqref{eqLiouvilleForm} we have 
+    Then $\omega = d \theta$ is a simlectic form on $T^*M$. Any system of coordinates $\{q_1,\dots, q_m\}$ in M determines coordinates $\{q_1,\dots, q_m, p_1, \dots, p_m\}$ in $T^*M$ by the relation $\eta = \sum p_i \cdot dq_i$. From \eqref{eqLiouvilleForm} we have 
     
     
     TOHLE SPOCITAT!!!!!!!!!!!!!!
@@ -79,9 +74,68 @@ Narozdil od riemannovske geometrie nelze pouzit partitions of unity na konstrukc
         \omega = d \theta = \sum_{i=1}^m p_i \wedge dq_i
     \end{equation*}
     is non-degenerate.
-
-
 \end{example}
+
+\begin{theorem}[Darboux theorem]
+    Let $M^{2m}, \omega$ be a symplectic manifold. Then for all $x \in M$ exists a chart $(U,\phi)$ such that $\omega$ is the pullback of the usual symplectic form $\omega = \phi*\Big(\sum_{m}^{i=1} dp_i \cdot dq_i \Big)$ 
+\end{theorem}
+\begin{proof}
+    In $T^*_xM$ choose a basis $\sigma_1, \dots, \sigma_m, \mu_1, \dots, \mu_m$ such that $\omega$ is in normal form i.e.
+    \begin{equation*}
+        \omega(x) = \sum_{m}^{i=1} \sigma_i \wedge \mu_i.
+    \end{equation*} 
+    Now consider a chart $\phi : V \rightarrow \mathbb{R}^2m$ around $x$ such that 
+    \begin{equation*}
+        \phi(x) = 0 \text{ and } \omega(x) = \phi* \Big( \sum_{m}^{i=1} \sigma_i \wedge \mu_i(0) \Big)
+    \end{equation*}
+    Denote the corresponding symplectic form on $V$ by 
+    \begin{equation*}
+        \omega_1 = \phi* \Big( \sum_{m}^{i=1} \sigma_i \wedge \mu_i(0) \Big).
+    \end{equation*}
+    Then there exists a neighbourhood $U \subset V$ such that for all $t \in [0,1]$ the form 
+    \begin{equation*}
+        \omega_t = (1-t)omega + t\cdot omega_1
+    \end{equation*}
+    is a symplectic form on $U$. Also $d\omega_t = 0$ and since $\omega_t(x) = \omega(x)$ for all $t$. By compactness, all $\omega_t$ do not degenerate at the same time in a neighbourhood of $x$. 
+
+    TADY POINCARE LEMMA 
+
+    Since $d(w_1 - w_0) = 0$, Poincare lemma shows the existence of a 1-form $\alpha$ such that $\omega_1 - \omega_0 = d\alpha$.
+    By substracting locally (if necessary) a 1-form with constant coefficients from $\alpha$, we may assume, that $\alpha$ vanishes at the point $x$, $\alpha(x) = 0$.
+    By dualizing $\alpha$ by using the symplectic forms $\omega_t$, we get a family $\Omega_t$ of vector fields on $U$ parametrized by $t$
+    \begin{equation*}
+        \omega_t(\nu, \mathcal{W}_t) = \alpha(\nu).
+    \end{equation*}
+    Let $\varphi(y,t) \in M$ be a solution of the non-autonomous differential equation
+    \begin{equation*}
+        \varphi'(t) = \mathcal{W}_t(\varphi(t)), \hspace{5pt} \varphi(0) = y
+    \end{equation*}
+
+    All the vector fields $\mathcal{W}_t(x) = 0$ vanish at $x$, so the solution corresponding to $x$ is constant $\varphi(x,t) = x$. So there exists a neighbourhood of x $U_1 \in U$ such that for every initial condition $y \in U_1, \varphi(y,t)$ is defined on $[0,1]$. Let $\varphi_t:U_1 \rightarrow M$ be the corresponding map. Then the formula for 
+    TADY CHYBI NEJAKA VETA :d
+    implies that 
+
+
+
+    \begin{equation*}
+        \begin{split}
+            \frac{d}{dt} \varphi_t^* (\omega_t) = \varphi_t^* \left( \frac{d\omega_t}{dt} \right) 
+            + \varphi_t^* \left( \mathcal{L}_{\partial \varphi_t / \partial t} (\omega_t) \right)
+            &= \varphi_t^* (\omega_t - \omega) + \varphi_t^* \left( \mathcal{L}_{W_t} (\omega_t) \right) \\ 
+            = \varphi_t^* (\omega_t - \omega + d(W_t \lrcorner \omega_t) + W_t \lrcorner d\omega_t) 
+            &= \varphi_t^* (\omega_t - \omega - d\alpha) = 0.
+        \end{split}
+    \end{equation*}
+
+
+
+    Thus $(\varphi_t^*(\omega_1) = \varphi_0^*(\omega) = \omega)$, and $(\Phi \circ \varphi_1)$ is the chart we were looking for,
+
+    \begin{equation*}
+        (\Phi \circ \varphi_1)^* \left( \sum_{i=1}^m dp_i \wedge dy_i \right) = \omega.
+    \end{equation*}
+
+\end{proof}
 
 \begin{lemma}[Lemmatko]
 $2+2 = 4 - 1 = 3$ quick maffs.
