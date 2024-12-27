@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm, float}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{longtable,lipsum} 
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma} % Lemmas share numbering with theorems
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+
+\title{Simplicial Geometry}
+\author{Radim Čech}
+
+\begin{document}
+\maketitle
+
+\noindent Ahoj, já mám malý penis. 
+
+\begin{definition}[Simplectic manifold]
+    Let $M$ be a smooth manifold of even dimension $2m$ and let $\omega \in \Omega^2(M)$ be a closed non degenerate 2-form i.e.
+    \begin{equation*}
+        d\omega = 0 \text{ and } \omega^m = \omega \wedge \omega \wedge \dots \wedge \omega \not = 0,
+    \end{equation*}
+    Then $\omega$ is called a \textit{simplectic form} and the pair $(M, \omega)$ is called a \textit{simplectic manifold}.
+\end{definition}
+
+ekvivalentni definice nedegenerovanosti.
+
+Narozdil od riemannovske geometrie nelze pouzit partitions of unity na konstrukci metriky.
+
+
+\begin{example}[Canonical symplectic structure]
+    Let $M = \mathbb{R}^2m$ with the global coordinates ${q_1, \dots, q_m, p_1, \dots, p_m}$. and let $\omega$ be a form s.t., 
+    \begin{equation*}
+        \omega = \sum_{i=1}^m dp_i \wedge dq_i.
+    \end{equation*}
+    Then 
+    \begin{equation*}
+        \omega^m = m! \cdot (-1)^{m(m-1)/2} \cdot dp_1 \wedge \dots \wedge dp_m \wedge dq_1 \wedge \dots \wedge dq_m
+    \end{equation*}
+    We call $R^2m$ with the form $\omega$ the canonical symplectic structure.
+\end{example}
+
+\begin{example}[Cotangent bundle is a symplectic manifold.]
+    Let $M$ be a manifold of dimension $m$, let $\eta \in T^*M$ be a tangent covector and $\nu \in T_\eta(T^*M)$ be a tangent vector at $\eta$.
+    Represent $\nu$ as a curve $\nu:(-\epsilon, \epsilon) \rightarrow T^*M$ s.t. 
+    \begin{equation*}
+        \nu(0) = \eta,\,\,\, \dot{\nu}(0) = \nu
+    \end{equation*}
+    Project this curve by the projection $\pi:T^*M \rightarrow M$ and apply $\eta$ to the tangent vector of the projected curve 
+    \begin{equation}\label{eqLiouvilleForm}
+        \theta(\nu) := \eta \Big(\frac{d}{dt}\big(\pi \circ \nu(t)\vert_{t=0} \big)\Big)
+    \end{equation}
+    Then 
+    \begin{equation*}
+        \omega = d \theta
+    \end{equation*}
+    is a simlectic form on $T^*M$.
+    Any system of coordinates $\{q_1,\dots, q_m\}$ in M determines coordinates $\{q_1,\dots, q_m, p_1, \dots, p_m\}$ in $T^*M$ by the relation
+    $\eta = \sum p_i \cdot dq_i$. From \eqref{eqLiouvilleForm} we have 
+    
+    
+    TOHLE SPOCITAT!!!!!!!!!!!!!!
+    
+    \begin{equation*}
+        \theta = \sum_{i=1}^m p_i \cdot dq_i
+    \end{equation*}
+    and the 2-form
+    \begin{equation*}
+        \omega = d \theta = \sum_{i=1}^m p_i \wedge dq_i
+    \end{equation*}
+    is non-degenerate.
+
+
+\end{example}
+
+\begin{lemma}[Lemmatko]
+$2+2 = 4 - 1 = 3$ quick maffs.
+\end{lemma}
+
+A ted si rekneme dulezitou vetu.
+\begin{theorem}[Hlavni veta o gaystvi]
+Jsi gay.
+\end{theorem}
+
+
+\begin{corollary}
+    Vlastne dusledek tohoto kratkeho textu je, ze bych se mel jit zabit. Jdu na to!
+\end{corollary}
+
+\end{document}
