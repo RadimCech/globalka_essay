@@ -76,6 +76,19 @@ napsat poznamku o koncenci se psanim dimenze manifoldu :D
     is non-degenerate.
 \end{example}
 
+tady nejak rozepsat predpoklady, lcordner je iota jakoby :ddddd
+
+\begin{lemma}\label{lemmaPocitaniSLieDerivative}
+    The Lie derivative of a differential form is expressed in terms of the exterior derivative and the inner product as
+    \begin{equation*}
+        \mathcal{L}_V(\omega^i) = d(V \lrcorner \, \omega^i) + V \lrcorner \, (d\omega^i).
+    \end{equation*}
+\end{lemma}
+
+\begin{lemma}[Poincare's Lemma]\label{lemmaPoincare}
+    Let $U$ be a star shaped open set in $R^n$, then for each closed k-form $\omega \in \Omega^k(U)$ there exists a (k-1)-form $\eta \in \Omega^{k-1}(U)$ such that $d\eta = \omega$.
+\end{lemma}
+
 \begin{theorem}[Darboux theorem]
     Let $M^{2m}, \omega$ be a symplectic manifold. Then for all $x \in M$ exists a chart $(U,\phi)$ such that $\omega$ is the pullback of the usual symplectic form $\omega = \phi*\Big(\sum_{m}^{i=1} dp_i \cdot dq_i \Big)$ 
 \end{theorem}
@@ -96,11 +109,7 @@ napsat poznamku o koncenci se psanim dimenze manifoldu :D
     \begin{equation*}
         \omega_t = (1-t)omega + t\cdot omega_1
     \end{equation*}
-    is a symplectic form on $U$. Also $d\omega_t = 0$ and since $\omega_t(x) = \omega(x)$ for all $t$. By compactness, all $\omega_t$ do not degenerate at the same time in a neighbourhood of $x$. 
-
-    TADY POINCARE LEMMA 
-
-    Since $d(w_1 - w_0) = 0$, Poincare lemma shows the existence of a 1-form $\alpha$ such that $\omega_1 - \omega_0 = d\alpha$.
+    is a symplectic form on $U$. Also $d\omega_t = 0$ and since $\omega_t(x) = \omega(x)$ for all $t$. By compactness, all $\omega_t$ do not degenerate at the same time in a neighbourhood of $x$. Since $d(w_1 - w_0) = 0$, Lemma \ref{lemmaPoincare} shows the existence of a 1-form $\alpha$ such that $\omega_1 - \omega_0 = d\alpha$.
     By substracting locally (if necessary) a 1-form with constant coefficients from $\alpha$, we may assume, that $\alpha$ vanishes at the point $x$, $\alpha(x) = 0$.
     By dualizing $\alpha$ by using the symplectic forms $\omega_t$, we get a family $\Omega_t$ of vector fields on $U$ parametrized by $t$
     \begin{equation*}
@@ -111,12 +120,7 @@ napsat poznamku o koncenci se psanim dimenze manifoldu :D
         \varphi'(t) = \mathcal{W}_t(\varphi(t)), \hspace{5pt} \varphi(0) = y
     \end{equation*}
 
-    All the vector fields $\mathcal{W}_t(x) = 0$ vanish at $x$, so the solution corresponding to $x$ is constant $\varphi(x,t) = x$. So there exists a neighbourhood of x $U_1 \in U$ such that for every initial condition $y \in U_1, \varphi(y,t)$ is defined on $[0,1]$. Let $\varphi_t:U_1 \rightarrow M$ be the corresponding map. Then the formula for 
-    TADY CHYBI NEJAKA VETA :d
-    implies that 
-
-
-
+    All the vector fields $\mathcal{W}_t(x) = 0$ vanish at $x$, so the solution corresponding to $x$ is constant $\varphi(x,t) = x$. So there exists a neighbourhood of x $U_1 \in U$ such that for every initial condition $y \in U_1, \varphi(y,t)$ is defined on $[0,1]$. Let $\varphi_t:U_1 \rightarrow M$ be the corresponding map. Then by application of Lemma \ref{lemmaPocitaniSLieDerivative},
     \begin{equation*}
         \begin{split}
             \frac{d}{dt} \varphi_t^* (\omega_t) = \varphi_t^* \left( \frac{d\omega_t}{dt} \right) 
@@ -126,16 +130,33 @@ napsat poznamku o koncenci se psanim dimenze manifoldu :D
             &= \varphi_t^* (\omega_t - \omega - d\alpha) = 0.
         \end{split}
     \end{equation*}
-
-
-
     Thus $(\varphi_t^*(\omega_1) = \varphi_0^*(\omega) = \omega)$, and $(\Phi \circ \varphi_1)$ is the chart we were looking for,
-
     \begin{equation*}
         (\Phi \circ \varphi_1)^* \left( \sum_{i=1}^m dp_i \wedge dy_i \right) = \omega.
     \end{equation*}
 
 \end{proof}
+
+tohle je v lsg.pdf
+
+lagrangian subspace? submanifold? embeddings? asi spis ne....
+
+\begin{definition}[Lagrangian submanifold]
+    Let $(M^{2m},\omega)$ be a symplectic manifold. We call a submanifold $Y$ of $M$ lagrangian, if at each $p \in Y$ , $T_pY$ is a lagrangian
+    subspace of $T_pM$ , i.e., $\omega_p|_{T_pY} \equiv 0$ and $dim T_pY = \frac{1}{2} dim T_pM$. 
+    Equivalently, if $i : Y \rightarrow M$ is the inclusion map, then $Y$ is lagrangian if and only if $i*\omega = 0$ and $dim Y = \frac{1}{2} dim M$ 
+    
+\end{definition}
+
+
+\begin{theorem}
+    the image of a section of $T^*M$ is a lagrangian submanifold iff nejaka forma je close...lsg strana 17.
+\end{theorem}
+
+lsg dalsi section
+\begin{example}
+    Let $S \subset X$ be a submanifold, then the conormal bundle $N^*S$ is a lagrangian submanifold of $T^*x$.
+\end{example}
 
 \begin{lemma}[Lemmatko]
 $2+2 = 4 - 1 = 3$ quick maffs.
