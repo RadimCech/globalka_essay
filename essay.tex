@@ -1,8 +1,9 @@
 \documentclass{article}
 \usepackage[english]{babel}
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-\usepackage{amsmath,amssymb,amsthm, float}
+\usepackage{amsmath,amssymb,amsthm,amsopn,  float}
 \usepackage{tikz}
+\usepackage{tikz-cd}
 \usepackage{physics}
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
@@ -17,15 +18,15 @@
 \newtheorem{example}[theorem]{Example}
 
 
-\title{Simplicial Geometry}
+\title{Symlectic Geometry}
 \author{Radim Čech}
 
 \begin{document}
 \maketitle
 
-\noindent Ahoj, já mám malý penis. 
+\noindent Symplectic geometry is a branch of differential geometry that studies symplectic manifolds, which are smooth manifolds equipped with a closed, non-degenerate 2-form called a symplectic form. It originated from classical mechanics.
 
-\begin{definition}[Simplectic manifold]
+\begin{definition}[Symlectic manifold]
     Let $M$ be a smooth manifold of even dimension $2m$ and let $\omega \in \Omega^2(M)$ be a closed non degenerate 2-form i.e.
     \begin{equation*}
         d\omega = 0 \text{ and } \omega^m = \omega \wedge \omega \wedge \dots \wedge \omega \not = 0,
@@ -41,100 +42,157 @@ napsat poznamku o koncenci se psanim dimenze manifoldu :D
 
 
 \begin{example}[Canonical symplectic structure]
-    Let $M = \mathbb{R}^2m$ with the global coordinates ${q_1, \dots, q_m, p_1, \dots, p_m}$. and let $\omega$ be a form s.t., 
+    Let $M = \mathbb{R}^{2m}$ with the global coordinates ${q_1, \dots, q_m, p_1, \dots, p_m}$. and let $\omega$ be a form s.t., 
     \begin{equation*}
         \omega = \sum_{i=1}^m dp_i \wedge dq_i.
     \end{equation*}
     Then 
     \begin{equation*}
-        \omega^m = m! \cdot (-1)^{m(m-1)/2} \cdot dp_1 \wedge \dots \wedge dp_m \wedge dq_1 \wedge \dots \wedge dq_m
+        \omega^m = m! \cdot (-1)^{m(m-1)/2} \cdot dp_1 \wedge \dots \wedge dp_m \wedge dq_1 \wedge \dots \wedge dq_m.
     \end{equation*}
     We call $R^2m$ with the form $\omega$ the canonical symplectic structure.
 \end{example}
 
 \begin{example}[Cotangent bundle is a symplectic manifold.]
-    Let $M$ be a manifold of dimension $m$, let $\eta \in T^*M$ be a tangent covector and $\nu \in T_\eta(T^*M)$ be a tangent vector at $\eta$. Represent $\nu$ as a curve $\nu:(-\epsilon, \epsilon) \rightarrow T^*M$ s.t. 
-    \begin{equation*}
-        \nu(0) = \eta,\,\,\, \nu'(0) = \nu
-    \end{equation*}
-    Project this curve by the projection $\pi:T^*M \rightarrow M$ and apply $\eta$ to the tangent vector of the projected curve 
-    \begin{equation}\label{eqLiouvilleForm}
-        \theta(\nu) := \eta \Big(\frac{d}{dt}\big(\pi \circ \nu(t)\vert_{t=0} \big)\Big)
+    Let $Q$ be a manifold, and consider the manifold $M = T^*Q$. Then there is a canonical 1-form $\theta \in \Omega^1(M)$ given by 
+    \begin{equation}
+        \theta(X) =  \langle \pi_{T^*Q}(X) , T(\pi_Q)(X) \rangle , \quad X \in T(T^*Q),
     \end{equation}
-    Then $\omega = d \theta$ is a simlectic form on $T^*M$. Any system of coordinates $\{q_1,\dots, q_m\}$ in M determines coordinates $\{q_1,\dots, q_m, p_1, \dots, p_m\}$ in $T^*M$ by the relation $\eta = \sum p_i \cdot dq_i$. From \eqref{eqLiouvilleForm} we have 
-    
-    
-    TOHLE SPOCITAT!!!!!!!!!!!!!!
-    
-    \begin{equation*}
-        \theta = \sum_{i=1}^m p_i \cdot dq_i
-    \end{equation*}
-    and the 2-form
-    \begin{equation*}
-        \omega = d \theta = \sum_{i=1}^m p_i \wedge dq_i
-    \end{equation*}
-    is non-degenerate.
+    where $\langle \cdot , \cdot \rangle$ is the natural pairing between tangent and cotangent spaces and the projections are the following:
+    \[
+    \begin{tikzcd}
+        & T(T^*Q) \arrow[ld, "\pi_{T^*Q}"'] \arrow[rd, "T(\pi_Q)"] & \\
+        T^*Q \arrow[rd, "\pi_Q"'] & & TQ \arrow[ld, "\pi_Q"] \\
+        & Q &
+        \end{tikzcd}
+        \quad
+        \begin{tikzcd}
+        & (q, p; \xi, \eta) \arrow[ld, "\pi_{T^*Q}"'] \arrow[rd, "T(\pi_Q)"] & \\
+        (q, p) \arrow[rd, "\pi_Q"'] & & (q, \xi) \arrow[ld, "\pi_Q"] \\
+        & q &
+    \end{tikzcd}
+    \]    
+    Let $ q = (q^1, \ldots, q^n) : U \to \mathbb{R}^n$ be a chart on $Q$, the we have the induced chart $T^*q : T^*U \to \mathbb{R}^n \times \mathbb{R}^n$, where $T^*_x q = (T_x q^{-1})^*$, we put $p_i := \langle e_i , T^*q(\cdot) \rangle : T^*U \to \mathbb{R}$. Then $(q^1, \ldots, q^n, p_1, \ldots, p_n) : T^*U \to \mathbb{R}^n \times (\mathbb{R}^n)^*$ are the induced coordinates and locally in these coordinates 
+    \begin{equation}
+        \theta(q,p) = \sum_{i=1}^n \left( \theta \left( \frac{\partial}{\partial q^i} \right) dq^i + \theta \left( \frac{\partial}{\partial p_i} \right) dp_i \right) = \sum_{i=1}^n p_i \, dq^i + 0,
+    \end{equation}
+    since $\theta \left( \frac{\partial}{\partial q^i} \right) = \theta_{R^n} \left( (q,p;e_i,0) \right) = \langle p,e_i \rangle = p_i$.
+
+    Now we define the \textit{canonical symplectic structure} $\omega \in \Omega^2(T^*Q)$ by 
+    \begin{equation}
+        \omega := -d \theta \stackrel{\text { locally }}{=} \sum_{i=1}^n d q^i \wedge d p_i.
+    \end{equation}
+    We see that the 2-form $\omega$ is non-degenerate.
 \end{example}
+dukaz ze je neni degen?
 
-tady nejak rozepsat predpoklady, lcordner je iota jakoby :ddddd
+\begin{definition}
+    Let $X: J \times M \rightarrow TM$ be a smooth mapping such that $\pi_M \circ X = pr_2$, where $J$ is open. Then we call $X$ a \textit{time dependent vector field} on a manifold $M$. 
+\end{definition}
+There is an associated vector field $\bar{X} \in \mathfrak{X}(J \times M)$, given by $\bar{X}(t, x)=(\frac{\partial}{\partial t}, X(t,x)) \in T_t\mathbb{R}\times T_xM$.
 
-\begin{lemma}\label{lemmaPocitaniSLieDerivative}
-    The Lie derivative of a differential form is expressed in terms of the exterior derivative and the inner product as
-    \begin{equation*}
-        \mathcal{L}_V(\omega^i) = d(V \lrcorner \, \omega^i) + V \lrcorner \, (d\omega^i).
-    \end{equation*}
+\begin{definition} \label{defEvolutionOperator}
+    Let $X$ be a time dependent vector field on a manifold $M$ and let $\Phi^X: J \times J \times M \rightarrow M$ be a map defined on a maximal neighborhood of $\Delta_J\times M$ satisfying the differential equation
+    \begin{equation}
+        \begin{split}
+            \frac{d}{d t} \Phi^X(t, s, x)&=X\left(t, \Phi^X(t, s, x)\right) \\ 
+            \Phi^X(s,s,x) &= x
+        \end{split}
+    \end{equation}
+\end{definition}
+Definition \ref{defEvolutionOperator} is equivalent with 
+\begin{equation*}
+    (t,\Phi^X(t,s,x)) = Fl^{\bar{X}}(t-s, (s,x)),
+\end{equation*}
+so the evolution operator exits and is unique on a maximal integral curve and satisfies
+\begin{equation*}
+    \Phi_{t, s}^X=\Phi_{t, r}^X \circ \Phi_{r, s}^X \text{, where }\Phi_{t, r}^X(x) = \Phi(t,s,x).
+\end{equation*}
+
+\begin{lemma} \label{lemmaFlows}
+    Let $f_t$ be a curve of diffeomorphisms on a manifold $M$ locally defined for each $t$ such that $f_0 = Id$. Defined two time dependent vector fields
+    \begin{equation}
+        \xi_t(x):=\left(T_x f_t\right)^{-1} \frac{\partial}{\partial t} f_t(x), \hspace{5pt} \eta_t(x):=\left(\frac{\partial}{\partial t} f_t\right)\left(f_t^{-1}(x)\right)
+    \end{equation}
+    Then $T\left(f_t\right) \cdot \xi_t=\frac{\partial}{\partial t} f_t=\eta_t \circ f_t$, so $\xi_t$ and $\eta_t$ are $f_t$-related. Let $\omega \in \Omega^k(M)$. Then
+    \begin{equation}\label{eqFlows1}
+        i_{\xi_t} f_t^* \omega=f_t^* i_{\eta_t} \omega, 
+    \end{equation}
+    \begin{equation}\label{eqFlows2}
+        \frac{\partial}{\partial t} f_t^* \omega=f_t^* \mathcal{L}_{\eta_t} \omega=\mathcal{L}_{\xi_t} f_t^* \omega.
+    \end{equation}
 \end{lemma}
 
-\begin{lemma}[Poincare's Lemma]\label{lemmaPoincare}
-    Let $U$ be a star shaped open set in $R^n$, then for each closed k-form $\omega \in \Omega^k(U)$ there exists a (k-1)-form $\eta \in \Omega^{k-1}(U)$ such that $d\eta = \omega$.
-\end{lemma}
-
-\begin{theorem}[Darboux theorem]
-    Let $M^{2m}, \omega$ be a symplectic manifold. Then for all $x \in M$ exists a chart $(U,\phi)$ such that $\omega$ is the pullback of the usual symplectic form $\omega = \phi*\Big(\sum_{m}^{i=1} dp_i \cdot dq_i \Big)$ 
-\end{theorem}
 \begin{proof}
-    In $T^*_xM$ choose a basis $\sigma_1, \dots, \sigma_m, \mu_1, \dots, \mu_m$ such that $\omega$ is in normal form i.e.
-    \begin{equation*}
-        \omega(x) = \sum_{m}^{i=1} \sigma_i \wedge \mu_i.
-    \end{equation*} 
-    Now consider a chart $\phi : V \rightarrow \mathbb{R}^2m$ around $x$ such that 
-    \begin{equation*}
-        \phi(x) = 0 \text{ and } \omega(x) = \phi* \Big( \sum_{m}^{i=1} \sigma_i \wedge \mu_i(0) \Big)
-    \end{equation*}
-    Denote the corresponding symplectic form on $V$ by 
-    \begin{equation*}
-        \omega_1 = \phi* \Big( \sum_{m}^{i=1} \sigma_i \wedge \mu_i(0) \Big).
-    \end{equation*}
-    Then there exists a neighbourhood $U \subset V$ such that for all $t \in [0,1]$ the form 
-    \begin{equation*}
-        \omega_t = (1-t)omega + t\cdot omega_1
-    \end{equation*}
-    is a symplectic form on $U$. Also $d\omega_t = 0$ and since $\omega_t(x) = \omega(x)$ for all $t$. By compactness, all $\omega_t$ do not degenerate at the same time in a neighbourhood of $x$. Since $d(w_1 - w_0) = 0$, Lemma \ref{lemmaPoincare} shows the existence of a 1-form $\alpha$ such that $\omega_1 - \omega_0 = d\alpha$.
-    By substracting locally (if necessary) a 1-form with constant coefficients from $\alpha$, we may assume, that $\alpha$ vanishes at the point $x$, $\alpha(x) = 0$.
-    By dualizing $\alpha$ by using the symplectic forms $\omega_t$, we get a family $\Omega_t$ of vector fields on $U$ parametrized by $t$
-    \begin{equation*}
-        \omega_t(\nu, \mathcal{W}_t) = \alpha(\nu).
-    \end{equation*}
-    Let $\varphi(y,t) \in M$ be a solution of the non-autonomous differential equation
-    \begin{equation*}
-        \varphi'(t) = \mathcal{W}_t(\varphi(t)), \hspace{5pt} \varphi(0) = y
-    \end{equation*}
-
-    All the vector fields $\mathcal{W}_t(x) = 0$ vanish at $x$, so the solution corresponding to $x$ is constant $\varphi(x,t) = x$. So there exists a neighbourhood of x $U_1 \in U$ such that for every initial condition $y \in U_1, \varphi(y,t)$ is defined on $[0,1]$. Let $\varphi_t:U_1 \rightarrow M$ be the corresponding map. Then by application of Lemma \ref{lemmaPocitaniSLieDerivative},
     \begin{equation*}
         \begin{split}
-            \frac{d}{dt} \varphi_t^* (\omega_t) = \varphi_t^* \left( \frac{d\omega_t}{dt} \right) 
-            + \varphi_t^* \left( \mathcal{L}_{\partial \varphi_t / \partial t} (\omega_t) \right)
-            &= \varphi_t^* (\omega_t - \omega) + \varphi_t^* \left( \mathcal{L}_{W_t} (\omega_t) \right) \\ 
-            = \varphi_t^* (\omega_t - \omega + d(W_t \lrcorner \omega_t) + W_t \lrcorner d\omega_t) 
-            &= \varphi_t^* (\omega_t - \omega - d\alpha) = 0.
+           \left(i_{\xi_t} f_t^* \omega\right)_x\left(X_2, \ldots, X_k\right)=\left(f_t^* \omega\right)_x\left(\xi_t(x), X_2, \ldots, X_k\right)= \\
+            =\omega_{f_t(x)}\left(T_x f_t \cdot \xi_t(x), T_x f_t \cdot X_2, \ldots, T_x f_t \cdot X_k\right)= \\
+            =\omega_{f_t(x)}\left(\eta_t\left(f_t(x)\right), T_x f_t \cdot X_2, \ldots, T_x f_t \cdot X_k\right) = \left(f_t^* i_{\xi_t}  \omega\right)_x\left(X_2, \ldots, X_k\right)
         \end{split}
     \end{equation*}
-    Thus $(\varphi_t^*(\omega_1) = \varphi_0^*(\omega) = \omega)$, and $(\Phi \circ \varphi_1)$ is the chart we were looking for,
+    This proves \eqref{eqFlows1}. Now consider $\bar{\eta} \in \mathfrak{X}(\mathbb{R} \times M), \bar{\eta}(t, x)=\left(\partial_t, \eta_t(x)\right)$ and let $\Phi^\eta : \mathbb{R} \times \mathbb{R} \times M \rightarrow M$ be the evolution operator, i.e.
     \begin{equation*}
-        (\Phi \circ \varphi_1)^* \left( \sum_{i=1}^m dp_i \wedge dy_i \right) = \omega.
+        \frac{\partial}{\partial t} \Phi_{t, s}^\eta(x)=\eta_t\left(\Phi_{t, s}^\eta(x)\right), \quad \Phi_{s, s}^\eta(x) = x,
+    \end{equation*}
+    such that 
+    \begin{equation*}
+        \left(t, \Phi_{t, s}^\eta(x)\right)=\mathrm{Fl}_{t-s}^{\bar{\eta}}(s, x), \hspace{4pt} \Phi_{t, s}^\eta=\Phi_{t, r}^\eta \circ \Phi_{r, s}^\eta(x).
+    \end{equation*}
+    Since $f_t$ satisfies 
+    $\frac{\partial}{\partial t} f_t = \eta_t \circ f_t$ and $ f_0 = Id_M$, either $f_t = \Phi^\eta_{t,0}$, or $(t,f_t(x)) = Fl^{\bar{\eta}}_t(0,x)$, so $f_t = pr_2 \circ Fl^{\bar{\eta}}_t \circ ins_0$. Thus
+    \begin{equation*}
+        \frac{\partial}{\partial t} f_t^* \omega=\frac{\partial}{\partial t}\left(\mathrm{pr}_2 \circ Fl_t^{\bar{\eta}} \circ ins_0\right)^*\omega = ins_0^* \frac{\partial}{\partial t}(Fl_t^{\bar{\eta}})^*pr_2^*\omega = ins_0^*(Fl^{\bar{\eta}}_t)^*\mathbb{L}_{\bar{\eta}}pr_2^*\omega.
+    \end{equation*}
+    For time dependant vector fields $X_i$(tady mozna nejaka vlastnost lie derivative!!!) we have 
+    \begin{equation*}
+        \begin{split}
+            \left(\mathcal{L}_{\bar{\eta}} \operatorname{pr}_2^* \omega\right) (0 \times X_1, \ldots,0 \times X_k)|_{(t,x)} = \bar{\eta} (( \operatorname{pr}_2^* \omega) (0 \times X_1, \ldots))|_{(t,x)} \\
+            -\sum_i (\operatorname{pr}_2^* \omega) (0 \times X_1, \ldots, [\bar{\eta}, 0 \times X_i], \ldots, 0 \times X_k)|_{(t,x)}\\
+            =\left(\partial_t, \eta_t(x)\right)\left(\omega\left(X_1, \ldots, X_k\right)\right) - \sum_i \omega\left(X_1, \ldots,\left[\eta_t, X_i\right], \ldots, X_k\right)|_x \\ 
+            = \left(\mathcal{L}_{\eta_t} \omega\right)_x\left(X_1, \ldots, X_k\right).
+        \end{split}
+    \end{equation*}
+    For $X_i \in T_xM$, this implies
+    \begin{equation}
+        \begin{split}
+            \left( \frac{\partial}{\partial t} f_t^* \omega \right)_x (X_1, \ldots, X_k) 
+            &= \left( \operatorname{ins}^*\bigl(\mathrm{Fl}^{\eta}_t\bigr)^* \mathcal{L}_\eta \, \mathrm{pr}_2^* \omega \right)_x (X_1, \ldots, X_k) \\
+            &= \left( \left(\mathrm{Fl}^{\eta}_t\right)^* \mathcal{L}_\eta \, \mathrm{pr}_2^* \omega \right)_{(0,x)} (0 \times X_1, \ldots, 0 \times X_k) \\
+            &= \left( \mathcal{L}_\eta \, \mathrm{pr}_2^* \omega \right)_{(t, f_t(x))} (0_t \times T_x f_t \cdot X_1, \ldots, 0_t \times T_x f_t \cdot X_k) \\
+            &= \left( \mathcal{L}_{\eta_t} \omega \right)_{f_t(x)} (T_x f_t \cdot X_1, \ldots, T_x f_t \cdot X_k) \\
+            &= \left( f_t^* \mathcal{L}_{\eta_t} \omega \right)_x (X_1, \ldots, X_k),
+        \end{split}
+    \end{equation}
+    We have proven the first part of \eqref{eqFlows2}, the second part follow from \eqref{eqFlows1}
+    \begin{equation}
+        \begin{split}
+        \frac{\partial}{\partial t} f_t^* \omega 
+        &= f_t^* \mathcal{L}_{\eta_t} \omega \\
+        &= f_t^* \left( d i_{\eta_t} + i_{\eta_t} d \right) \omega \\
+        &= d f_t^* i_{\eta_t} \omega + f_t^* i_{\eta_t} d \omega \\
+        &= d i_{\xi_t} f_t^* \omega + i_{\xi_t} f_t^* d \omega \\
+        &= d i_{\xi_t} f_t^* \omega + i_{\xi_t} d f_t^* \omega \\
+        &= \mathcal{L}_{\xi_t} f_t^* \omega.
+        \end{split}
+        \end{equation}
+\end{proof}
+
+dopsat co je ins a pr2?
+
+\begin{theorem}[Darboux]
+    Let $(M,\omega)$ be a symplectic manifold of dimension $2n$. Then for all points $x \in M$ exists a chart $(U,u)$ centered at $x$ such that $\omega |_U = \sum_{i=1}^{n} du^i \wedge du^{n+i}$.
+\end{theorem}
+
+\begin{proof}
+    Take a chart $(U,u)$ centered at $x$ and choose coordinates such that $\omega_x = \sum_{i=1}^{n} du^i \wedge du^{n+i}$ at $x$. Then $\omega_0 = \omega |_U$ and $\omega_1 = \sum_{i=1}^{n} du^i \wedge du^{n+i}$ are two symplectic forms that are equal at $x$. Now interpolate $\omega_t = \omega_0 + t(\omega_1 + \omega_0)$. Then $\omega_t$ is a symplectic form on a possibly smaller neighbourhood of $x$ for all $t \in [0,1]$.
+
+    We want to find a curve of diffeomorphisms $f_t$ near $x$ such that $f_0 = id$, $f_t(x) = x$ and such that the pullback condition $f^*_t \omega_t = \omega_0$ is satisfied. Assume that $U$ is contractible, then the second cohomology group $H^2(U) = 0$ and every closed 2-form is exact, so $d(\omega_1 - \omega_0) = 0$ implies $\omega_1-\omega_0 = d \psi$ for some $\psi \in \Omega^1(U)$. By adding a constant we may assume that $\psi_x = 0$. Now by using Lemma \ref{lemmaFlows}, \eqref{eqFlows2}, we get a time dependant vector field $\eta_t = \frac{\partial}{\partial t}f_t \circ f^{-1}_t$, then by differentiating with respect to $t$, (cartan formula!!)
+    \begin{equation*}
+        0=\frac{\partial}{\partial t} f_t^* \omega_t=f_t^*\left(\mathcal{L}_{\eta_t} \omega_t+\frac{\partial}{\partial t} \omega_t \right) = f_t^*\left(d i_{\eta_t} \omega_t+i_{\eta_t} d \omega_t+\omega_1-\omega_0\right)=f_t^* d\left(i_{\eta_t}\omega_t + \psi\right)
     \end{equation*}
 
+    Since $\omega_t$ is non-degenerate, the equation $i_{\eta_t}\omega_t = -\psi$ prescribes the vector field $\eta_t$ uniquely. Also $\eta_t(x) = 0$ sine $\psi_x = 0$. On some neighbourhood of $x$ the left evolution operator $f_t$ of $\eta_t$ exists for all $t \in [0,1]$ and $\frac{\partial}{\partial t}(f^*_t\omega_t) = 0$, so $f_t^*\omega_t = \omega_0$ for all $t \in [0,1]$.
 \end{proof}
 
 tohle je v lsg.pdf
