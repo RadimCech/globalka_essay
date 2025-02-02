@@ -18,7 +18,7 @@
 \newtheorem{example}[theorem]{Example}
 
 
-\title{Symlectic Geometry}
+\title{Symplectic Geometry}
 \author{Radim Čech}
 
 \begin{document}
@@ -323,6 +323,148 @@ There are other lagrangian submanifolds of $T^*M$. Lets study the conormal bundl
 \end{corollary}
 
 Notice that taking $S = \{x\}$ to be a point, then the conormal bundle $N^*S = T^*_xM$ is a cotangent fiber. Taking $S = X$, the conormal bundle is the zero section $M_0$.
+
+Lets study the poisson bracket.
+
+\begin{definition}[Hamiltonian vector field]
+    Let $(M,\omega)$ be a symplectic manifold and $f \in C^\infty(M)$. Then the \textit{Hamiltonian vector field} or \textit{symplectic gradient} of $f$ $H_f = grad^\omega(f) \in \mathfrak{X}(M)$ is defined by the following equivalent prescriptions:
+    \begin{equation*}
+        \begin{split}
+            i(&H_f)\omega = df,\\
+            \quad &H_f = \omega^{-1} df, \\
+            \omega(&H_f, X) = X(f) \quad \text{for } X \in TM.  
+        \end{split}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    For two functions \( f, g \in C^\infty(M) \), we define their \textit{Poisson bracket} \( \{f, g\} \) by
+    \begin{equation}
+        \{f, g\} := i(H_f)i(H_g)\omega = \omega(H_g, H_f) = H_f(g) = \mathcal{L}_{H_f} g = dg(H_f) \in C^\infty(M).
+    \end{equation}
+    Let us furthermore put
+    \begin{equation}
+        \mathfrak{X}(M, \omega) := \{ X \in \mathfrak{X}(M) : \mathcal{L}_X \omega = 0 \}
+    \end{equation}
+    and call this the space of \textit{locally Hamiltonian vector fields} or \(\omega\)-\textit{respecting vector fields}.
+
+\end{definition}
+
+
+\begin{theorem}
+    Let $(M, \omega)$ be a symplectic manifold.
+
+    Then $(C^\infty(M), \{ \ , \ \})$ is a Lie algebra which also satisfies 
+    \[
+    \{f, gh\} = \{f, g\}h + g\{f, h\},
+    \]
+    i.e., $\mathrm{ad}_f = \{f, \cdot\}$ is a derivation of $(C^\infty(M), \cdot)$.
+
+    Moreover, there is an exact sequence of Lie algebras and Lie algebra homomorphisms
+    \[
+    0 \longrightarrow H^0(M) \xrightarrow{\alpha} C^\infty(M) \xrightarrow{H = \mathrm{grad}^\omega} \mathfrak{X}(M, \omega) \xrightarrow{\gamma} H^1(M) \longrightarrow 0
+    \]
+    where the brackets are written under the spaces, where $\alpha$ is the embedding of the space of all locally constant functions, and where 
+    \[
+    \gamma(X) := [i_X \omega] \in H^1(M).
+    \]
+
+    The whole situation behaves invariantly (resp. equivariantly) under the pullback by symplectomorphisms $\varphi: M \to M$: For example 
+    \[
+    \varphi^*\{f, g\} = \{\varphi^* f, \varphi^* g\}, \quad \varphi^*(H_f) = H_{\varphi^* f}, \quad \text{and} \quad \varphi^*\gamma(X) = \gamma(\varphi^* X).
+    \]
+    Consequently, for $X \in \mathfrak{X}(M, \omega)$ we have 
+    \[
+    \mathcal{L}_X \{f, g\} = \{\mathcal{L}_X f, g\} + \{f, \mathcal{L}_X g\}, \quad \text{and} \quad \gamma(\mathcal{L}_X Y) = 0.
+    \]
+\end{theorem}
+
+\begin{proof}
+    The operator $H$ takes values in $\mathfrak{X}(M, \omega)$ since
+    \[
+    \mathcal{L}_{H_f} \omega = i_{H_f} d\omega + d i_{H_f} \omega = 0 + d df = 0.
+    \]
+
+    \[
+    H(\{f, g\}) = [H_f, H_g] 
+    \]
+    since by (7.9) and (7.7) we have
+    \begin{equation}
+    i_{H(\{f, g\})} \omega = d\{f, g\} = d \mathcal{L}_{H_f} g = \mathcal{L}_{H_f} dg - 0 = \mathcal{L}_{H_f} i_{H_g} \omega - i_{H_g} \mathcal{L}_{H_f} \omega
+    = [\mathcal{L}_{H_f}, i_{H_g}] \omega = i_{[H_f, H_g]} \omega.
+    \end{equation}
+
+    The sequence is exact at $H^0(M)$ since the embedding $\alpha$ of the locally constant functions is injective.
+
+    The sequence is exact at $C^\infty(M)$: For a locally constant function $c$ we have 
+    \[
+    H_c = \tilde{\omega}^{-1} dc = \tilde{\omega}^{-1} 0 = 0.
+    \]
+    If $H_f = \tilde{\omega}^{-1} df = 0$ for $f \in C^\infty(M)$ then $df = 0$, so $f$ is locally constant.
+
+    The sequence is exact at $\mathfrak{X}(M, \omega)$: For $X \in \mathfrak{X}(M, \omega)$ we have 
+    \[
+    d i_X \omega = i_X d\omega + i_X d\omega = \mathcal{L}_X \omega = 0,
+    \]
+    thus $\gamma(X) = [i_X \omega] \in H^1(M)$ is well-defined. For $f \in C^\infty(M)$ we have 
+    \[
+    \gamma(H_f) = [i_{H_f} \omega] = [df] = 0 \in H^1(M).
+    \]
+    If $X \in \mathfrak{X}(M, \omega)$ with $\gamma(X) = [i_X \omega] = 0 \in H^1(M)$ then $i_X \omega = df$ for some $f \in \Omega^0(M) = C^\infty(M)$, but then $X = H_f$.
+
+    The sequence is exact at $H^1(M)$: The mapping $\gamma$ is surjective since for $\varphi \in \Omega^1(M)$ with $d\varphi = 0$ we may consider 
+    \[
+    X := \tilde{\omega}^{-1} \varphi \in \mathfrak{X}(M)
+    \]
+    which satisfies 
+    \[
+    \mathcal{L}_X \omega = i_X d\omega + d i_X \omega = 0 + d\varphi = 0
+    \]
+    and 
+    \[
+    \gamma(X) = [i_X \omega] = [\varphi] \in H^1(M).
+    \]
+
+    The Poisson bracket $\{ \ , \ \}$ is a Lie bracket and 
+    \[
+    \{f, gh\} = \{f, g\}h + g\{f, h\}:
+    \]
+    \begin{align}
+    \{f, g\} &= \omega(H_g, H_f) = -\omega(H_f, H_g) = \{g, f\}, \\
+    \{f, \{g, h\}\} &= \mathcal{L}_{H_f} \mathcal{L}_{H_g} h = [\mathcal{L}_{H_f}, \mathcal{L}_{H_g}] h + \mathcal{L}_{H_g} \mathcal{L}_{H_f} h \\
+    &= [\mathcal{L}_{H_f}, \mathcal{L}_{H_g}] h + \{g, \{f, h\}\} = \mathcal{L}_{H_{\{f, g\}}} h + \{g, \{f, h\}\} \\
+    &= \{\{f, g\}, h\} + \{g, \{f, h\}\}, \\
+    \{f, gh\} &= \mathcal{L}_{H_f}(gh) = \mathcal{L}_{H_f}(g)h + g \mathcal{L}_{H_f}(h) = \{f, g\}h + g\{f, h\}.
+    \end{align}
+
+    All mappings in the sequence are Lie algebra homomorphisms: For local constants $\{c_1, c_2\}$ we have $H_{c_1 c_2} = 0$. For $H$ we already checked. For $X, Y \in \mathfrak{X}(M, \omega)$ we have
+    \[
+    i_{[X, Y]} \omega = [\mathcal{L}_X, i_Y] \omega = \mathcal{L}_X i_Y \omega - i_Y \mathcal{L}_X \omega = d i_X i_Y \omega + i_X d i_Y \omega - 0 = d i_X i_Y \omega,
+    \]
+    thus 
+    \[
+    \gamma([X, Y]) = [i_{[X, Y]} \omega] = 0 \in H^1(M).
+    \]
+
+    Let us now transform the situation by a symplectomorphism $\varphi: M \to M$ via pullback. Then
+    \[
+    \varphi^* \omega = \omega \quad \Leftrightarrow \quad (T\varphi)^* \circ \tilde{\omega} \circ T\varphi = \tilde{\omega}
+    \]
+    \[
+    \Rightarrow H_{\varphi^* f} = \tilde{\omega}^{-1} d(\varphi^* f) = \tilde{\omega}^{-1} (\varphi^* df) 
+    = (T\varphi^{-1} \circ \tilde{\omega}^{-1} \circ (T\varphi)^*) (d f \circ \varphi)
+    = \varphi^*(H_f)
+    \]
+    \[
+    \varphi^* \{f, g\} = \varphi^* (d g (H_f)) = ( \varphi^* dg ) ( \varphi^* H_f ) = d(\varphi^* g)(H_{\varphi^* f}) = \{ \varphi^* f, \varphi^* g \}.
+    \]
+
+    The operator $X \mapsto \mathcal{L}_X$ is the Lie derivative followed by applying 
+    \[
+    \mathcal{L}_X = \frac{\partial}{\partial t} \bigg|_{t=0} (F_t^X)^*.
+    \]
+
+\end{proof}
 
 
 \begin{lemma}[Lemmatko]
