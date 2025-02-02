@@ -55,7 +55,7 @@ napsat poznamku o koncenci se psanim dimenze manifoldu :D
 
 \begin{example}[Cotangent bundle is a symplectic manifold.]
     Let $Q$ be a manifold, and consider the manifold $M = T^*Q$. Then there is a canonical 1-form $\theta \in \Omega^1(M)$ given by 
-    \begin{equation}
+    \begin{equation}\label{eqTheta1}
         \theta(X) =  \langle \pi_{T^*Q}(X) , T(\pi_Q)(X) \rangle , \quad X \in T(T^*Q),
     \end{equation}
     where $\langle \cdot , \cdot \rangle$ is the natural pairing between tangent and cotangent spaces and the projections are the following:
@@ -73,17 +73,22 @@ napsat poznamku o koncenci se psanim dimenze manifoldu :D
     \end{tikzcd}
     \]    
     Let $ q = (q^1, \ldots, q^n) : U \to \mathbb{R}^n$ be a chart on $Q$, the we have the induced chart $T^*q : T^*U \to \mathbb{R}^n \times \mathbb{R}^n$, where $T^*_x q = (T_x q^{-1})^*$, we put $p_i := \langle e_i , T^*q(\cdot) \rangle : T^*U \to \mathbb{R}$. Then $(q^1, \ldots, q^n, p_1, \ldots, p_n) : T^*U \to \mathbb{R}^n \times (\mathbb{R}^n)^*$ are the induced coordinates and locally in these coordinates 
-    \begin{equation}
+    \begin{equation}\label{eqTheta2}
         \theta(q,p) = \sum_{i=1}^n \left( \theta \left( \frac{\partial}{\partial q^i} \right) dq^i + \theta \left( \frac{\partial}{\partial p_i} \right) dp_i \right) = \sum_{i=1}^n p_i \, dq^i + 0,
     \end{equation}
     since $\theta \left( \frac{\partial}{\partial q^i} \right) = \theta_{R^n} \left( (q,p;e_i,0) \right) = \langle p,e_i \rangle = p_i$.
 
-    Now we define the \textit{canonical symplectic structure} $\omega \in \Omega^2(T^*Q)$ by 
-    \begin{equation}
+    Now we define the 2-form $\omega \in \Omega^2(T^*Q)$ by 
+    \begin{equation}\label{eqCotangentForm}
         \omega := -d \theta \stackrel{\text { locally }}{=} \sum_{i=1}^n d q^i \wedge d p_i.
     \end{equation}
     We see that the 2-form $\omega$ is non-degenerate.
 \end{example}
+
+\begin{definition}
+    The form $\theta \in \Omega^1(M)$ from \eqref{eqTheta1}, locally given by \eqref{eqTheta2}, is called the \textit{tautological 1-form} on $T^*Q$. The induced 2-form $\omega$ from \eqref{eqCotangentForm} is called the \textit{canonical symplectic structure} on $T^*Q$.
+\end{definition}
+
 dukaz ze je neni degen?
 
 \begin{definition}
@@ -126,9 +131,10 @@ so the evolution operator exits and is unique on a maximal integral curve and sa
 \begin{proof}
     \begin{equation*}
         \begin{split}
-           \left(i_{\xi_t} f_t^* \omega\right)_x\left(X_2, \ldots, X_k\right)=\left(f_t^* \omega\right)_x\left(\xi_t(x), X_2, \ldots, X_k\right)= \\
-            =\omega_{f_t(x)}\left(T_x f_t \cdot \xi_t(x), T_x f_t \cdot X_2, \ldots, T_x f_t \cdot X_k\right)= \\
-            =\omega_{f_t(x)}\left(\eta_t\left(f_t(x)\right), T_x f_t \cdot X_2, \ldots, T_x f_t \cdot X_k\right) = \left(f_t^* i_{\xi_t}  \omega\right)_x\left(X_2, \ldots, X_k\right)
+           \left(i_{\xi_t} f_t^* \omega\right)_x\left(X_2, \ldots, X_k\right) &= \left(f_t^* \omega\right)_x\left(\xi_t(x), X_2, \ldots, X_k\right)\\
+            &=\omega_{f_t(x)}\left(T_x f_t \cdot \xi_t(x), T_x f_t \cdot X_2, \ldots, T_x f_t \cdot X_k\right) \\
+            &=\omega_{f_t(x)}\left(\eta_t\left(f_t(x)\right), T_x f_t \cdot X_2, \ldots, T_x f_t \cdot X_k\right) \\
+            &= \left(f_t^* i_{\xi_t}  \omega\right)_x\left(X_2, \ldots, X_k\right)
         \end{split}
     \end{equation*}
     This proves \eqref{eqFlows1}. Now consider $\bar{\eta} \in \mathfrak{X}(\mathbb{R} \times M), \bar{\eta}(t, x)=\left(\partial_t, \eta_t(x)\right)$ and let $\Phi^\eta : \mathbb{R} \times \mathbb{R} \times M \rightarrow M$ be the evolution operator, i.e.
@@ -147,10 +153,11 @@ so the evolution operator exits and is unique on a maximal integral curve and sa
     For time dependant vector fields $X_i$(tady mozna nejaka vlastnost lie derivative!!!) we have 
     \begin{equation*}
         \begin{split}
-            \left(\mathcal{L}_{\bar{\eta}} \operatorname{pr}_2^* \omega\right) (0 \times X_1, \ldots,0 \times X_k)|_{(t,x)} = \bar{\eta} (( \operatorname{pr}_2^* \omega) (0 \times X_1, \ldots))|_{(t,x)} \\
-            -\sum_i (\operatorname{pr}_2^* \omega) (0 \times X_1, \ldots, [\bar{\eta}, 0 \times X_i], \ldots, 0 \times X_k)|_{(t,x)}\\
-            =\left(\partial_t, \eta_t(x)\right)\left(\omega\left(X_1, \ldots, X_k\right)\right) - \sum_i \omega\left(X_1, \ldots,\left[\eta_t, X_i\right], \ldots, X_k\right)|_x \\ 
-            = \left(\mathcal{L}_{\eta_t} \omega\right)_x\left(X_1, \ldots, X_k\right).
+            \left(\mathcal{L}_{\bar{\eta}} \operatorname{pr}_2^* \omega\right) (0 \times X_1, \ldots,0 \times X_k)|_{(t,x)} 
+            &= \bar{\eta} (( \operatorname{pr}_2^* \omega) (0 \times X_1, \ldots))|_{(t,x)} \\
+            &-\sum_i (\operatorname{pr}_2^* \omega) (0 \times X_1, \ldots, [\bar{\eta}, 0 \times X_i], \ldots, 0 \times X_k)|_{(t,x)}\\
+            &=\left(\partial_t, \eta_t(x)\right)\left(\omega\left(X_1, \ldots, X_k\right)\right) - \sum_i \omega\left(X_1, \ldots,\left[\eta_t, X_i\right], \ldots, X_k\right)|_x \\ 
+            &= \left(\mathcal{L}_{\eta_t} \omega\right)_x\left(X_1, \ldots, X_k\right).
         \end{split}
     \end{equation*}
     For $X_i \in T_xM$, this implies
@@ -195,26 +202,128 @@ dopsat co je ins a pr2?
     Since $\omega_t$ is non-degenerate, the equation $i_{\eta_t}\omega_t = -\psi$ prescribes the vector field $\eta_t$ uniquely. Also $\eta_t(x) = 0$ sine $\psi_x = 0$. On some neighbourhood of $x$ the left evolution operator $f_t$ of $\eta_t$ exists for all $t \in [0,1]$ and $\frac{\partial}{\partial t}(f^*_t\omega_t) = 0$, so $f_t^*\omega_t = \omega_0$ for all $t \in [0,1]$.
 \end{proof}
 
-tohle je v lsg.pdf
+NOW lets study symplectomorphisms.
 
-lagrangian subspace? submanifold? embeddings? asi spis ne....
+mozna dopsat definici lagrangian manifold
 
 \begin{definition}[Lagrangian submanifold]
     Let $(M^{2m},\omega)$ be a symplectic manifold. We call a submanifold $Y$ of $M$ lagrangian, if at each $p \in Y$ , $T_pY$ is a lagrangian
-    subspace of $T_pM$ , i.e., $\omega_p|_{T_pY} \equiv 0$ and $dim T_pY = \frac{1}{2} dim T_pM$. 
-    Equivalently, if $i : Y \rightarrow M$ is the inclusion map, then $Y$ is lagrangian if and only if $i*\omega = 0$ and $dim Y = \frac{1}{2} dim M$ 
+    subspace of $T_pM$ , that is, $\omega_p|_{T_pY} \equiv 0$ and $\operatorname{dim} T_pY = \frac{1}{2} \operatorname{dim} T_pM$.
+
+    Equivalently, if $i : Y \rightarrow M$ is the inclusion map, then $Y$ is lagrangian if and only if $i*\omega = 0$ and $\operatorname{dim} Y = \frac{1}{2} \operatorname{dim} M$ 
     
 \end{definition}
 
-dukazem tehle sracky se napise i priklad ktery chceme napsat 
-\begin{theorem}
-    the image of a section of $T^*M$ is a lagrangian submanifold iff nejaka forma je close...lsg strana 17.
-\end{theorem}
+\begin{example}[The zero section of $T^*M$]
+    Let $M^m$ be a manifold and consider its cotangent bundle $T^*M$ with the local coordinates $x_1, \ldots, x_m, \xi_1, \ldots, \xi_m$ on $T^*U$. Then the \textit{zero section} of $T^*M$ is the set 
+    \begin{equation*}
+        M_0 = {(x,\xi) \in T^*M | \xi = 0 in T^*_xM}
+    \end{equation*}
+    is an $m$-dimensional submanifold of $T^*M$ whose intersection with $T*U$ is given by the equations $\xi_1 = \ldots = \xi_n = 0$. Then clearly the tautological 1-form $\theta(x, \xi)$ vanishes on $M_0 \cap T^*U$. Let $i_0 : M_0 \rightarrow T^*M$ be the inclusion map, then $i_0^* \theta = 0$. Hence $i_0^* \omega = i_0^*d \theta = 0$ and so $M_0$ is lagrangian.
+\end{example}
 
-lsg dalsi section
+Now let $\mu \in \Omega^1(M)$ be a 1-form and consider the set 
+\begin{equation}\label{eqNejakySubmanifold}
+    M_\mu=\left\{\left(x, \mu_x\right) \mid x \in X, \mu_x \in T_x^* X\right\}
+\end{equation}
+Then $M_\mu$ is a submanifold of $T^*M$. When is $M_\mu$ lagrangian?
+
+\begin{lemma}
+    Let $M_\mu$ be of the form \eqref{eqNejakySubmanifold}. Denote by $s_\mu : M \rightarrow T^*M, x \rightarrow (x, \mu_x)$ the 1-form $\mu$ regarded as a map. Let $\theta$ be the tautological 1-form on $T^*M$. Then
+    \begin{equation*}
+        s^*_\mu \theta = \mu
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    By definition of $\theta$, $\theta_p = (d\pi)^* \xi$ at $p = (x, \xi) \in M.$
+For $p = s_\mu(x) = (x, \mu_x)$, we have $\theta_p = (d\pi_p)^* \mu_x$. Then 
+
+\begin{equation*}
+    (s_\mu^* \theta)_x = (ds_\mu)^*_x \theta_p = (ds_\mu)^*_x (d\pi_p)^* \mu_x = \left( d(\pi \circ s_\mu) \right)^*_x \mu_x = \mu_x.
+\end{equation*}
+\end{proof}
+
+\begin{lemma}
+    Let $M_\mu$ be of the form \eqref{eqNejakySubmanifold}. Then $M_\mu$ is lagrangian iff. $\mu$ is closed.
+\end{lemma}
+\begin{proof}
+    The map $s_\mu : M \rightarrow T^*M, x \rightarrow (x, \mu_x)$ is an embedding with image $M_\mu$. Then there is a diffeomorphism \( \tau: M \to M_\mu \), \( \tau(x) := (x, \mu_x) \), such that the following diagram commutes:
+
+    \[
+    \begin{tikzcd}
+        X \arrow[r, "s_\mu"] \arrow[dr, "\tau"'] & T^*X \\
+        & X_\mu \arrow[u, hook, "i"']
+    \end{tikzcd}
+    \]
+    
+    We want to express the condition of \( M_\mu \) being Lagrangian in terms of the form \( \mu \):
+
+    \begin{equation}
+        \begin{aligned}
+        M_\mu \text{ is Lagrangian} 
+        &\iff i^* d\theta = 0 \\
+        &\iff \tau^* i^* d\theta = 0 \\
+        &\iff (i \circ \tau)^* d\theta = 0 \\
+        &\iff s_\mu^* d\theta = 0 \\
+        &\iff d s_\mu^* \theta = 0 \\
+        &\iff d\mu = 0 \\
+        &\iff \mu \text{ is closed.}
+        \end{aligned}
+    \end{equation}
+
+    Therefore, there is a one-to-one correspondence between the set of Lagrangian submanifolds of $T^*M$ of the form \eqref{eqNejakySubmanifold} and the set of closed 1-forms on $M$.
+\end{proof}
+
+There are other lagrangian submanifolds of $T^*M$. Lets study the conormal bundles.
+
+\begin{definition}
+    Let $S^k$ be submanifold of $M^m$, then the \textit{conormal space} at $x$ is the set
+    \begin{equation*}
+        N_x^* S=\left\{\xi \in T_x^* M \mid \xi(v)=0\right., \left.v \in T_x M\right\}.
+    \end{equation*}
+    The \textit{conormal bundle} of $S$ is 
+    \begin{equation*}
+        N^* S=\left\{(x, \xi) \in T^* M \mid x \in S, \xi \in N_x^* S\right\}.
+    \end{equation*}
+\end{definition}
 \begin{example}
     Let $S \subset X$ be a submanifold, then the conormal bundle $N^*S$ is a lagrangian submanifold of $T^*x$.
 \end{example}
+
+\begin{lemma}
+    The conormal bundle $N^*S$ is an $n$-dimensional submanifold of $T^*M$.
+\end{lemma}
+
+\begin{lemma}
+    Let $i: N^*S \hookrightarrow T^*M$ be the inclusion and $\theta$ the tautological 1-form on $T^*M$. Then
+    \begin{equation*}
+        i^*\theta = 0.
+    \end{equation*}
+\end{lemma}
+
+\begin{proof}
+    Let $(U, x_1, \ldots, x_n)$ be a coordinate system on $M$ centered at $x \in S$ and adapted to $M$, so that $U \cap S$ is described by 
+    \begin{equation*}
+        x_{k+1} = \ldots = x_n = 0. \text{ and } \xi_1 = \ldots = \xi_k = 0
+    \end{equation*}
+
+    Let $(U, x_1, \ldots, x_n, \xi_1, \ldots, \xi_n)$ be the associated cotangent coordinate system. The submanifold $N^*S \cap T^*U$ is then described by
+    \begin{equation}
+        x_{k+1} = \ldots = x_n = 0 \text{ and } \xi_1 = \ldots = \xi_k = 0.
+    \end{equation}
+
+    Since $\theta = \sum \xi_i dx_i$ on $T^*U$, we conclude that, at $p \in N^*S$,
+    \begin{equation}
+        (i^* \theta)_p = \theta_p|_{T_p(N^*S)} = \left. \sum_{i > k} \xi_i dx_i \right|_{\mathrm{span}\left\{\frac{\partial}{\partial x_i}, i \leq k \right\}} = 0.
+    \end{equation}
+\end{proof}
+
+\begin{corollary}
+    For any submanifold $S$ of $M$, the conormal bundle $N^*S$ is a lagrangian submanifold of $T^*M$.
+\end{corollary}
+
+Notice that taking $S = \{x\}$ to be a point, then the conormal bundle $N^*S = T^*_xM$ is a cotangent fiber. Taking $S = X$, the conormal bundle is the zero section $M_0$.
+
 
 \begin{lemma}[Lemmatko]
 $2+2 = 4 - 1 = 3$ quick maffs.
