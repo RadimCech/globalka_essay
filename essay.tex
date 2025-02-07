@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[english]{babel}
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
 \usepackage{amsmath,amssymb,amsthm,amsopn,  float}
 \usepackage{tikz}
 \usepackage{tikz-cd}
@@ -8,15 +9,15 @@
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{longtable,lipsum} 
-
+\usepackage{natbib}
 
 \newtheorem{theorem}{Theorem}
+\numberwithin{theorem}{section}
 \newtheorem{lemma}[theorem]{Lemma} % Lemmas share numbering with theorems
 \newtheorem{corollary}[theorem]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
-
 
 \title{Symplectic Geometry}
 \author{Radim Čech}
@@ -24,8 +25,9 @@
 \begin{document}
 \maketitle
 
-\noindent Symplectic geometry is a branch of differential geometry that studies symplectic manifolds, which are smooth manifolds equipped with a closed, non-degenerate 2-form called a symplectic form. It originated from classical mechanics.
+\noindent Symplectic geometry is a branch of differential geometry that studies symplectic manifolds, which are smooth manifolds equipped with a closed, non-degenerate 2-form called a symplectic form. It originated from Hamiltonian mechanics.
 
+\section{Symplectic manifolds}
 \begin{definition}[Symlectic manifold]
     Let $M$ be a smooth manifold of even dimension $2m$ and let $\omega \in \Omega^2(M)$ be a closed non degenerate 2-form i.e.
     \begin{equation*}
@@ -34,22 +36,15 @@
     Then $\omega$ is called a \textit{simplectic form} and the pair $(M, \omega)$ is called a \textit{simplectic manifold}.
 \end{definition}
 
-ekvivalentni definice nedegenerovanosti.
-
-Narozdil od riemannovske geometrie nelze pouzit partitions of unity na konstrukci metriky.
-
-napsat poznamku o koncenci se psanim dimenze manifoldu :D
-
-
 \begin{example}[Canonical symplectic structure]
     Let $M = \mathbb{R}^{2m}$ with the global coordinates ${q_1, \dots, q_m, p_1, \dots, p_m}$. and let $\omega$ be a form s.t., 
     \begin{equation*}
         \omega = \sum_{i=1}^m dp_i \wedge dq_i.
     \end{equation*}
     Then 
-    \begin{equation*}
+    \begin{equation}\label{eqNonDegen}
         \omega^m = m! \cdot (-1)^{m(m-1)/2} \cdot dp_1 \wedge \dots \wedge dp_m \wedge dq_1 \wedge \dots \wedge dq_m.
-    \end{equation*}
+    \end{equation}
     We call $R^2m$ with the form $\omega$ the canonical symplectic structure.
 \end{example}
 
@@ -82,19 +77,18 @@ napsat poznamku o koncenci se psanim dimenze manifoldu :D
     \begin{equation}\label{eqCotangentForm}
         \omega := -d \theta \stackrel{\text { locally }}{=} \sum_{i=1}^n d q^i \wedge d p_i.
     \end{equation}
-    We see that the 2-form $\omega$ is non-degenerate.
+    By the same argument as in \eqref{eqNonDegen} the 2-form $\omega$ is non-degenerate.
 \end{example}
 
 \begin{definition}
     The form $\theta \in \Omega^1(M)$ from \eqref{eqTheta1}, locally given by \eqref{eqTheta2}, is called the \textit{tautological 1-form} on $T^*Q$. The induced 2-form $\omega$ from \eqref{eqCotangentForm} is called the \textit{canonical symplectic structure} on $T^*Q$.
-\end{definition}
-
-dukaz ze je neni degen?
+\end{definition}    
 
 \begin{definition}
-    Let $X: J \times M \rightarrow TM$ be a smooth mapping such that $\pi_M \circ X = pr_2$, where $J$ is open. Then we call $X$ a \textit{time dependent vector field} on a manifold $M$. 
+    Let $X: J \times M \rightarrow TM$ be a smooth mapping such that $\pi_M \circ X = pr_2$, where $J$ is open. Then we call $X$ a \textit{time dependent vector field} on a manifold $M$.
+
+    There is an associated vector field $\bar{X} \in \mathfrak{X}(J \times M)$ to each time dependant vector field $X$ given by $\bar{X}(t, x)=(\frac{\partial}{\partial t}, X(t,x)) \in T_t\mathbb{R}\times T_xM$. 
 \end{definition}
-There is an associated vector field $\bar{X} \in \mathfrak{X}(J \times M)$, given by $\bar{X}(t, x)=(\frac{\partial}{\partial t}, X(t,x)) \in T_t\mathbb{R}\times T_xM$.
 
 \begin{definition} \label{defEvolutionOperator}
     Let $X$ be a time dependent vector field on a manifold $M$ and let $\Phi^X: J \times J \times M \rightarrow M$ be a map defined on a maximal neighborhood of $\Delta_J\times M$ satisfying the differential equation
@@ -134,7 +128,7 @@ so the evolution operator exits and is unique on a maximal integral curve and sa
            \left(i_{\xi_t} f_t^* \omega\right)_x\left(X_2, \ldots, X_k\right) &= \left(f_t^* \omega\right)_x\left(\xi_t(x), X_2, \ldots, X_k\right)\\
             &=\omega_{f_t(x)}\left(T_x f_t \cdot \xi_t(x), T_x f_t \cdot X_2, \ldots, T_x f_t \cdot X_k\right) \\
             &=\omega_{f_t(x)}\left(\eta_t\left(f_t(x)\right), T_x f_t \cdot X_2, \ldots, T_x f_t \cdot X_k\right) \\
-            &= \left(f_t^* i_{\xi_t}  \omega\right)_x\left(X_2, \ldots, X_k\right)
+            &= \left(f_t^* i_{\eta_t}  \omega\right)_x\left(X_2, \ldots, X_k\right)
         \end{split}
     \end{equation*}
     This proves \eqref{eqFlows1}. Now consider $\bar{\eta} \in \mathfrak{X}(\mathbb{R} \times M), \bar{\eta}(t, x)=\left(\partial_t, \eta_t(x)\right)$ and let $\Phi^\eta : \mathbb{R} \times \mathbb{R} \times M \rightarrow M$ be the evolution operator, i.e.
@@ -148,9 +142,11 @@ so the evolution operator exits and is unique on a maximal integral curve and sa
     Since $f_t$ satisfies 
     $\frac{\partial}{\partial t} f_t = \eta_t \circ f_t$ and $ f_0 = Id_M$, either $f_t = \Phi^\eta_{t,0}$, or $(t,f_t(x)) = Fl^{\bar{\eta}}_t(0,x)$, so $f_t = pr_2 \circ Fl^{\bar{\eta}}_t \circ ins_0$. Thus
     \begin{equation*}
-        \frac{\partial}{\partial t} f_t^* \omega=\frac{\partial}{\partial t}\left(\mathrm{pr}_2 \circ Fl_t^{\bar{\eta}} \circ ins_0\right)^*\omega = ins_0^* \frac{\partial}{\partial t}(Fl_t^{\bar{\eta}})^*pr_2^*\omega = ins_0^*(Fl^{\bar{\eta}}_t)^*\mathbb{L}_{\bar{\eta}}pr_2^*\omega.
+        \frac{\partial}{\partial t} f_t^* \omega=\frac{\partial}{\partial t}\left(\mathrm{pr}_2 \circ Fl_t^{\bar{\eta}} \circ ins_0\right)^*\omega = ins_0^* \frac{\partial}{\partial t}(Fl_t^{\bar{\eta}})^*pr_2^*\omega = ins_0^*(Fl^{\bar{\eta}}_t)^*\mathbb{L}_{\bar{\eta}}pr_2^*\omega,
     \end{equation*}
-    For time dependant vector fields $X_i$(tady mozna nejaka vlastnost lie derivative!!!) we have 
+    where $pr_2$ is a projection to the second component and $ins_0$ is the map $ ins_0: M \to \mathbb{R} \times M, \quad x \to (0, x)$.
+
+    For time dependant vector fields $X_i$ we have 
     \begin{equation*}
         \begin{split}
             \left(\mathcal{L}_{\bar{\eta}} \operatorname{pr}_2^* \omega\right) (0 \times X_1, \ldots,0 \times X_k)|_{(t,x)} 
@@ -185,26 +181,27 @@ so the evolution operator exits and is unique on a maximal integral curve and sa
         \end{equation}
 \end{proof}
 
-dopsat co je ins a pr2?
+\section{The Darboux theorem}
+The following theorem provides a canonical local form for symplectic manifolds.
 
 \begin{theorem}[Darboux]
     Let $(M,\omega)$ be a symplectic manifold of dimension $2n$. Then for all points $x \in M$ exists a chart $(U,u)$ centered at $x$ such that $\omega |_U = \sum_{i=1}^{n} du^i \wedge du^{n+i}$.
 \end{theorem}
 
 \begin{proof}
-    Take a chart $(U,u)$ centered at $x$ and choose coordinates such that $\omega_x = \sum_{i=1}^{n} du^i \wedge du^{n+i}$ at $x$. Then $\omega_0 = \omega |_U$ and $\omega_1 = \sum_{i=1}^{n} du^i \wedge du^{n+i}$ are two symplectic forms that are equal at $x$. Now interpolate $\omega_t = \omega_0 + t(\omega_1 + \omega_0)$. Then $\omega_t$ is a symplectic form on a possibly smaller neighbourhood of $x$ for all $t \in [0,1]$.
+    Consider a chart $(U,u)$ centered at $x$ and choose coordinates such that the symplectic form is expressed as $\omega_x = \sum_{i=1}^{n} du^i \wedge du^{n+i}$ at $x$. Then $\omega_0 = \omega |_U$ and $\omega_1 = \sum_{i=1}^{n} du^i \wedge du^{n+i}$ are two symplectic forms that are equal at $x$. Now interpolate $\omega_t = \omega_0 + t(\omega_1 + \omega_0)$. Then $\omega_t$ is a symplectic form on a possibly smaller neighbourhood of $x$ for all $t \in [0,1]$.
 
-    We want to find a curve of diffeomorphisms $f_t$ near $x$ such that $f_0 = id$, $f_t(x) = x$ and such that the pullback condition $f^*_t \omega_t = \omega_0$ is satisfied. Assume that $U$ is contractible, then the second cohomology group $H^2(U) = 0$ and every closed 2-form is exact, so $d(\omega_1 - \omega_0) = 0$ implies $\omega_1-\omega_0 = d \psi$ for some $\psi \in \Omega^1(U)$. By adding a constant we may assume that $\psi_x = 0$. Now by using Lemma \ref{lemmaFlows}, \eqref{eqFlows2}, we get a time dependant vector field $\eta_t = \frac{\partial}{\partial t}f_t \circ f^{-1}_t$, then by differentiating with respect to $t$, (cartan formula!!)
+    Now construct a curve of diffeomorphisms $f_t$ near $x$ such that $f_0 = id$, $f_t(x) = x$ and such that the pullback condition $f^*_t \omega_t = \omega_0$ is satisfied. Assume that $U$ is contractible, then the second cohomology group $H^2(U) = 0$ and every closed 2-form is exact, so $d(\omega_1 - \omega_0) = 0$ and by the Poincare lemma $\omega_1-\omega_0 = d \psi$ for some $\psi \in \Omega^1(U)$. By adding a constant we may assume that $\psi_x = 0$. Now by using Lemma \ref{lemmaFlows}, \eqref{eqFlows2}, we get a time dependant vector field $\eta_t = \frac{\partial}{\partial t}f_t \circ f^{-1}_t$, then by differentiating with respect to $t$,
     \begin{equation*}
         0=\frac{\partial}{\partial t} f_t^* \omega_t=f_t^*\left(\mathcal{L}_{\eta_t} \omega_t+\frac{\partial}{\partial t} \omega_t \right) = f_t^*\left(d i_{\eta_t} \omega_t+i_{\eta_t} d \omega_t+\omega_1-\omega_0\right)=f_t^* d\left(i_{\eta_t}\omega_t + \psi\right)
     \end{equation*}
 
-    Since $\omega_t$ is non-degenerate, the equation $i_{\eta_t}\omega_t = -\psi$ prescribes the vector field $\eta_t$ uniquely. Also $\eta_t(x) = 0$ sine $\psi_x = 0$. On some neighbourhood of $x$ the left evolution operator $f_t$ of $\eta_t$ exists for all $t \in [0,1]$ and $\frac{\partial}{\partial t}(f^*_t\omega_t) = 0$, so $f_t^*\omega_t = \omega_0$ for all $t \in [0,1]$.
+    Since $\omega_t$ is non-degenerate, the equation $i_{\eta_t}\omega_t = -\psi$ uniquely determines the vector field $\eta_t$. Also $\eta_t(x) = 0$ since $\psi_x = 0$. On some neighbourhood of $x$ the left evolution operator $f_t$ of $\eta_t$ exists for all $t \in [0,1]$ and $\frac{\partial}{\partial t}(f^*_t\omega_t) = 0$, so $f_t^*\omega_t = \omega_0$ for all $t \in [0,1]$.
 \end{proof}
 
-NOW lets study symplectomorphisms.
+\section{Lagrangian submanifolds}
 
-mozna dopsat definici lagrangian manifold
+Now we shift our focus on lagrangian submanifolds, which are submanifolds of half dimension on which the symplectic form vanishes.
 
 \begin{definition}[Lagrangian submanifold]
     Let $(M^{2m},\omega)$ be a symplectic manifold. We call a submanifold $Y$ of $M$ lagrangian, if at each $p \in Y$ , $T_pY$ is a lagrangian
@@ -217,7 +214,7 @@ mozna dopsat definici lagrangian manifold
 \begin{example}[The zero section of $T^*M$]
     Let $M^m$ be a manifold and consider its cotangent bundle $T^*M$ with the local coordinates $x_1, \ldots, x_m, \xi_1, \ldots, \xi_m$ on $T^*U$. Then the \textit{zero section} of $T^*M$ is the set 
     \begin{equation*}
-        M_0 = {(x,\xi) \in T^*M | \xi = 0 in T^*_xM}
+        M_0 = \{(x,\xi) \in T^*M\, |\, \xi = 0  \text{ in } T^*_xM\}
     \end{equation*}
     is an $m$-dimensional submanifold of $T^*M$ whose intersection with $T*U$ is given by the equations $\xi_1 = \ldots = \xi_n = 0$. Then clearly the tautological 1-form $\theta(x, \xi)$ vanishes on $M_0 \cap T^*U$. Let $i_0 : M_0 \rightarrow T^*M$ be the inclusion map, then $i_0^* \theta = 0$. Hence $i_0^* \omega = i_0^*d \theta = 0$ and so $M_0$ is lagrangian.
 \end{example}
@@ -274,7 +271,7 @@ For $p = s_\mu(x) = (x, \mu_x)$, we have $\theta_p = (d\pi_p)^* \mu_x$. Then
     Therefore, there is a one-to-one correspondence between the set of Lagrangian submanifolds of $T^*M$ of the form \eqref{eqNejakySubmanifold} and the set of closed 1-forms on $M$.
 \end{proof}
 
-There are other lagrangian submanifolds of $T^*M$. Lets study the conormal bundles.
+Not all Lagrangian submanifolds of $T^*M$ are of the form $M_\mu$. Another important class is the conormal bundles.
 
 \begin{definition}
     Let $S^k$ be submanifold of $M^m$, then the \textit{conormal space} at $x$ is the set
@@ -293,6 +290,27 @@ There are other lagrangian submanifolds of $T^*M$. Lets study the conormal bundl
 \begin{lemma}
     The conormal bundle $N^*S$ is an $n$-dimensional submanifold of $T^*M$.
 \end{lemma}
+
+\begin{proof}
+    Choose coordinates on $X$ adapted to $S$, that is 
+    \begin{equation*}
+        S = \{ x_{k_1} = \ldots = x_n = 0\}.
+    \end{equation*} 
+    In these coordinates, a basis of $T_pS$ at a point $p \ in S$ is given by 
+    \begin{equation*}
+        \{ \frac{\partial}{\partial x^1}, \dots, \frac{\partial}{\partial x^k} \}
+    \end{equation*}
+    and the cotangent space $T_p^*X$ has a dual basis $(dx_1, \ldots, dx_n)$. The conormal space $N_p^*S$ consists of coverctors of the form 
+    \begin{equation*}
+        \xi = \sum_{i=1}^{n} \xi_i dx_i
+    \end{equation*}
+    such that $\xi$ annihilates $T_pS$, that is $\xi_i = \xi(\frac{\partial}{\partial x^i}) = 0$ for $i \in 0,\ldots, k$.
+    Then the elements of $N^*S$ in these coordinates are given by 
+    \begin{equation*}
+        (x_1, \ldots, x_k, 0, \ldots, 0, \xi_{k+1}, \ldots, \xi_n)
+    \end{equation*}
+    and we see that the dimension of $N^*S$ is $k + n-k = n$.
+\end{proof}
 
 \begin{lemma}
     Let $i: N^*S \hookrightarrow T^*M$ be the inclusion and $\theta$ the tautological 1-form on $T^*M$. Then
@@ -324,7 +342,8 @@ There are other lagrangian submanifolds of $T^*M$. Lets study the conormal bundl
 
 Notice that taking $S = \{x\}$ to be a point, then the conormal bundle $N^*S = T^*_xM$ is a cotangent fiber. Taking $S = X$, the conormal bundle is the zero section $M_0$.
 
-Lets study the poisson bracket.
+\section{The Poisson bracket}
+Now lets study the Poisson bracket, which defines a Lie bracket structure on on smooth functions.   
 
 \begin{definition}[Hamiltonian vector field]
     Let $(M,\omega)$ be a symplectic manifold and $f \in C^\infty(M)$. Then the \textit{Hamiltonian vector field} or \textit{symplectic gradient} of $f$ $H_f = grad^\omega(f) \in \mathfrak{X}(M)$ is defined by the following equivalent prescriptions:
@@ -342,7 +361,7 @@ Lets study the poisson bracket.
     \begin{equation}
         \{f, g\} := i(H_f)i(H_g)\omega = \omega(H_g, H_f) = H_f(g) = \mathcal{L}_{H_f} g = dg(H_f) \in C^\infty(M).
     \end{equation}
-    Let us furthermore put
+    Also define 
     \begin{equation}
         \mathfrak{X}(M, \omega) := \{ X \in \mathfrak{X}(M) : \mathcal{L}_X \omega = 0 \}
     \end{equation}
@@ -352,9 +371,7 @@ Lets study the poisson bracket.
 
 
 \begin{theorem}
-    Let $(M, \omega)$ be a symplectic manifold.
-
-    Then $(C^\infty(M), \{ \ , \ \})$ is a Lie algebra which also satisfies 
+    Let $(M, \omega)$ be a symplectic manifold. Then $(C^\infty(M), \{ \ , \ \})$ is a Lie algebra which also satisfies 
     \[
     \{f, gh\} = \{f, g\}h + g\{f, h\},
     \]
@@ -362,14 +379,14 @@ Lets study the poisson bracket.
 
     Moreover, there is an exact sequence of Lie algebras and Lie algebra homomorphisms
     \[
-    0 \longrightarrow H^0(M) \xrightarrow{\alpha} C^\infty(M) \xrightarrow{H = \mathrm{grad}^\omega} \mathfrak{X}(M, \omega) \xrightarrow{\gamma} H^1(M) \longrightarrow 0
+    0 \longrightarrow H^0(M) \xrightarrow{\alpha} \{ C^\infty(M), \{\cdot, \cdot\} \} \xrightarrow{H = \mathrm{grad}^\omega} \{ \mathfrak{X}(M, \omega), [\cdot, \cdot] \} \xrightarrow{\gamma} H^1(M) \longrightarrow 0,
     \]
-    where the brackets are written under the spaces, where $\alpha$ is the embedding of the space of all locally constant functions, and where 
+    where $\alpha$ is the embedding of the space of all locally constant functions, and where 
     \[
     \gamma(X) := [i_X \omega] \in H^1(M).
     \]
 
-    The whole situation behaves invariantly (resp. equivariantly) under the pullback by symplectomorphisms $\varphi: M \to M$: For example 
+    The sequence behaves invariantly under the pullback by symplectomorphisms $\varphi: M \to M$: For example 
     \[
     \varphi^*\{f, g\} = \{\varphi^* f, \varphi^* g\}, \quad \varphi^*(H_f) = H_{\varphi^* f}, \quad \text{and} \quad \varphi^*\gamma(X) = \gamma(\varphi^* X).
     \]
@@ -385,22 +402,21 @@ Lets study the poisson bracket.
     \mathcal{L}_{H_f} \omega = i_{H_f} d\omega + d i_{H_f} \omega = 0 + d df = 0.
     \]
 
-    \[
-    H(\{f, g\}) = [H_f, H_g] 
-    \]
-    since by (7.9) and (7.7) we have
+    $H(\{f, g\}) = [H_f, H_g] $ since 
     \begin{equation}
-    i_{H(\{f, g\})} \omega = d\{f, g\} = d \mathcal{L}_{H_f} g = \mathcal{L}_{H_f} dg - 0 = \mathcal{L}_{H_f} i_{H_g} \omega - i_{H_g} \mathcal{L}_{H_f} \omega
-    = [\mathcal{L}_{H_f}, i_{H_g}] \omega = i_{[H_f, H_g]} \omega.
+        \begin{split}
+            i_{H(\{f, g\})} \omega &= d\{f, g\} \\
+            &= d \mathcal{L}_{H_f} g \\
+            &= \mathcal{L}_{H_f} dg - 0 \\
+            &= \mathcal{L}_{H_f} i_{H_g} \omega - i_{H_g} \mathcal{L}_{H_f} \omega \\
+            &= [\mathcal{L}_{H_f}, i_{H_g}] \omega \\
+            &= i_{[H_f, H_g]} \omega.
+        \end{split}
     \end{equation}
 
     The sequence is exact at $H^0(M)$ since the embedding $\alpha$ of the locally constant functions is injective.
 
-    The sequence is exact at $C^\infty(M)$: For a locally constant function $c$ we have 
-    \[
-    H_c = \tilde{\omega}^{-1} dc = \tilde{\omega}^{-1} 0 = 0.
-    \]
-    If $H_f = \tilde{\omega}^{-1} df = 0$ for $f \in C^\infty(M)$ then $df = 0$, so $f$ is locally constant.
+    The sequence is exact at $C^\infty(M)$: For a locally constant function $c$ we have $H_c = \tilde{\omega}^{-1} dc = \tilde{\omega}^{-1} 0 = 0.$ If $H_f = \tilde{\omega}^{-1} df = 0$ for $f \in C^\infty(M)$ then $df = 0$, so $f$ is locally constant.
 
     The sequence is exact at $\mathfrak{X}(M, \omega)$: For $X \in \mathfrak{X}(M, \omega)$ we have 
     \[
@@ -466,19 +482,8 @@ Lets study the poisson bracket.
 
 \end{proof}
 
-
-\begin{lemma}[Lemmatko]
-$2+2 = 4 - 1 = 3$ quick maffs.
-\end{lemma}
-
-A ted si rekneme dulezitou vetu.
-\begin{theorem}[Hlavni veta o gaystvi]
-Jsi gay.
-\end{theorem}
-
-
-\begin{corollary}
-    Vlastne dusledek tohoto kratkeho textu je, ze bych se mel jit zabit. Jdu na to!
-\end{corollary}
+\nocite{*}
+\bibliographystyle{plain}
+\bibliography{bib}
 
 \end{document}
